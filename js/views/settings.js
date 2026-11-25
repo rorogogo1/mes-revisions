@@ -39,7 +39,7 @@ export default {
           </div>
         </label>
         <label class="field"><span>Modèle</span>
-          <select class="input" data-model><option value="${s.model}">${s.model}</option></select>
+          <select class="input" data-model><option value="${s.model}">${s.model || 'Automatique (après le test de la clé)'}</option></select>
         </label>
         <div class="row wrap">
           <button class="btn btn-primary" data-test-key>${icon('check')} Enregistrer et tester</button>
@@ -107,11 +107,12 @@ export default {
     const modelSelect = root.querySelector('[data-model]');
     const status = root.querySelector('[data-key-status]');
 
-    const fillModels = (models) => {
+    // Les modèles arrivent déjà classés (le plus adapté en premier).
+    const fillModels = (models, { resetToBest = false } = {}) => {
       const current = getSettings().model;
       const ids = models.map((m) => m.id);
-      const preferred = ids.includes(current) ? current : ids.find((id) => /flash/.test(id) && !/lite|preview|exp/.test(id)) || ids[0];
-      modelSelect.innerHTML = String(html`${models.map((m) => html`<option value="${m.id}" ${m.id === preferred ? 'selected' : ''}>${m.label} (${m.id})</option>`)}`);
+      const preferred = !resetToBest && ids.includes(current) ? current : ids[0];
+      modelSelect.innerHTML = String(html`${models.map((m, i) => html`<option value="${m.id}" ${m.id === preferred ? 'selected' : ''}>${m.label} (${m.id})${i === 0 ? ' · recommandé' : ''}</option>`)}`);
       if (preferred && preferred !== current) setSettings({ model: preferred });
     };
 
@@ -130,8 +131,8 @@ export default {
       try {
         const models = await listModels(key);
         setSettings({ apiKey: key });
-        fillModels(models);
-        status.textContent = `Clé valide · ${plural(models.length, 'modèle disponible', 'modèles disponibles')}.`;
+        fillModels(models, { resetToBest: true });
+        status.textContent = `Clé valide · ${plural(models.length, 'modèle disponible', 'modèles disponibles')} · modèle utilisé : ${getSettings().model}. Si un modèle est refusé, l'appli passe automatiquement au suivant.`;
         toast('Clé Gemini enregistrée', 'success');
       } catch (err) {
         status.textContent = err.message;

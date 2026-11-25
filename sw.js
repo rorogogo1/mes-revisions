@@ -1,5 +1,5 @@
 // Service worker : l'application fonctionne hors ligne une fois chargée.
-const VERSION = 'mes-revisions-v1';
+const VERSION = 'mes-revisions-v2';
 const RUNTIME = 'mes-revisions-runtime-v1';
 
 const SHELL = [

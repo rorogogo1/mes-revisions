@@ -4,7 +4,7 @@ const KEY = 'mes-revisions:settings';
 
 const DEFAULTS = {
   apiKey: '',
-  model: 'gemini-2.5-flash',
+  model: '', // choisi automatiquement parmi les modèles disponibles pour la clé
   language: 'fr',
   retention: 0.9,
   newPerDay: 20,
