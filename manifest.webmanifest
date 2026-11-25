@@ -1,0 +1,23 @@
+{
+  "name": "Mes révisions",
+  "short_name": "Mes révisions",
+  "description": "Transforme tes notes de cours en questions de révision et révise au bon moment jusqu'à l'examen.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f5f6fb",
+  "theme_color": "#4f46e5",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Réviser", "url": "./#/reviser", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Importer des notes", "url": "./#/importer?nouveau=1", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
